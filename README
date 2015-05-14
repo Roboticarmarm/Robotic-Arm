@@ -1,0 +1,4 @@
+Robotic Arm Control Codebase
+--------------------------OVERVIEW------------------------
+1. arm.sh-Basic Control sample code for RK3188 (1 servo)
+2. arm.ino-Basic control sample code for Arduino Mega2560
