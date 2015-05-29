@@ -2,3 +2,29 @@ Robotic Arm Control Codebase
 --------------------------OVERVIEW------------------------
 1. arm.sh-Basic Control sample code for RK3188 (1 servo)
 2. arm.ino-Basic control sample code for Arduino Mega2560
+
+
+-------------------------TASK LIST-----------------------
+5/15
+For mopplayer : Startup
+Basic control for RK3188 and Mega2560.
+Testing done.
+----
+
+5/22
+For mopplayer : Rebuild sirius system for RK3188
+ISSUE: 
+For testing voice, it spent about 6X secs on
+recognition.
+Using gcc 4.8.2 is not recommended by office,
+they say it will crash.
+Retry to build system by using gcc 4.9.3.
+----
+
+5/29
+For mopplayer : System has been finished
+gcc 4.9.3 will cause some bug on program, drop it
+Using gcc 4.8.2 to rebuild ASR to minimize space.
+11G -> 2.5G for space requirement.
+Testing done.
+
