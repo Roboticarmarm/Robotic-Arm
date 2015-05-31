@@ -1,10 +1,17 @@
 Robotic Arm Control Codebase
---------------------------OVERVIEW------------------------
+------------------------OVERVIEW--------------------------
 1. arm.sh-Basic Control sample code for RK3188 (1 servo)
 2. arm.ino-Basic control sample code for Arduino Mega2560
 
+------------------------GUIDELINE-------------------------
+For everyone in this project, doc format is here:
+{
+	For someone in this project - title
+	TODO: what is your current task
+	ISSIUE: issiues need to be discussed
+}
 
--------------------------TASK LIST-----------------------
+-------------------------TASK LIST------------------------
 5/15
 For mopplayer : Startup
 Basic control for RK3188 and Mega2560.
@@ -27,4 +34,18 @@ gcc 4.9.3 will cause some bug on program, drop it
 Using gcc 4.8.2 to rebuild ASR to minimize space.
 11G -> 2.5G for space requirement.
 Testing done.
+
+5/30
+For mopplayer : Review control method
+ISSIUE:
+if use GPIOs to control the servos, we will need
+2x17 GPIOs to encode only 4 angels of the servos
+I make it more flexible...
+
+5/31
+For mopplayer : Change GPIOs to Serial
+I coded the serial of base, it use ttyUSB to
+emulate serial. I also tried UART, but there are
+some bugs on sync, so drop it.
+Push serial code, it will be combined.
 
