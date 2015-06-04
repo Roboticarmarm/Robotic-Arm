@@ -6,7 +6,7 @@ if [ "$?" == "0" ]; then
 	echo "Succeeded!"
 	case $1 in
 	"-hold")
-		echo "90,90,90,90,90,90,90,90,90,90,90,90,90,90,90" >> /dev/ttyACM0
+		sudo echo "90,90,90,90,90,90,90,90,90,90,90,90,90,90,90" >> /dev/ttyACM0
 		if [ "$?" == "0" ]; then
 			echo "...done."
 		else
@@ -14,7 +14,7 @@ if [ "$?" == "0" ]; then
 		fi
          	;;
 	"")
-		echo "Usage: main.sh [operation]";
+		echo "Usage: mainarm.sh [operation]";
 		echo "Support operations:";
 		echo "-hold";
 		;;
