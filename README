@@ -25,15 +25,15 @@ For mopplayer : Rebuild sirius system for RK3188
 ISSUE: 
 For testing voice, it spent about 6X secs on
 recognition.
-Using gcc 4.8.2 is not recommended by office,
+Using GCC 4.8.2 is not recommended by office,
 they say it will crash.
-Retry to build system by using gcc 4.9.3.
+Retry to build system by using GCC 4.9.3.
 ----
 
 5/29
 For mopplayer : System has been finished
-gcc 4.9.3 will cause some bug on program, drop it
-Using gcc 4.8.2 to rebuild ASR to minimize space.
+GCC 4.9.3 will cause some bug on program, drop it
+Using GCC 4.8.2 to rebuild ASR to minimize space.
 11G -> 2.5G for space requirement.
 Testing done.
 ----
@@ -55,9 +55,17 @@ Push serial code, it will be combined.
 ----
 
 6/4
-For mopplayer : release beta version for host
+For mopplayer : Release beta version for host
 This beta version is only for hand control,
 only uses linux host to control,
 and doesn't involve voice recognition.
 It supported a "hold" operation.
 ----
+
+6/5
+For mopplayer : GCC issiue solved
+Now waiting for New configured GCC 4.9.3.
+ISSUE:
+The robotic arm is overloaded by the torque 
+of the base servo, it need time to solve.
+
