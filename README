@@ -1,8 +1,10 @@
 Robotic Arm Control Codebase
 ------------------------OVERVIEW--------------------------
-1. arm.sh-Basic Control sample code for RK3188 (1 servo)
+1. arm.sh-Basic control sample code for RK3188 (1 servo)
 2. arm.ino-Basic control sample code for Arduino Mega2560
-
+3. serial.ino-Serial base sample code for Arduino Mega2560
+4. mainarm.sh-Beta version for RK3188 (hand)
+5. mainarm.ino-Beta version for Arduino Mega2560
 ------------------------GUIDELINE-------------------------
 For everyone in this project, doc format is here:
 {
@@ -34,6 +36,7 @@ gcc 4.9.3 will cause some bug on program, drop it
 Using gcc 4.8.2 to rebuild ASR to minimize space.
 11G -> 2.5G for space requirement.
 Testing done.
+----
 
 5/30
 For mopplayer : Review control method
@@ -41,6 +44,7 @@ ISSIUE:
 if use GPIOs to control the servos, we will need
 2x17 GPIOs to encode only 4 angels of the servos
 I make it more flexible...
+----
 
 5/31
 For mopplayer : Change GPIOs to Serial
@@ -48,4 +52,12 @@ I coded the serial of base, it use ttyUSB to
 emulate serial. I also tried UART, but there are
 some bugs on sync, so drop it.
 Push serial code, it will be combined.
+----
 
+6/4
+For mopplayer : release beta version for host
+This beta version is only for hand control,
+only uses linux host to control,
+and doesn't involve voice recognition.
+It supported a "hold" operation.
+----
