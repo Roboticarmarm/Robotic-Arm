@@ -68,4 +68,10 @@ Now waiting for New configured GCC 4.9.3.
 ISSUE:
 The robotic arm is overloaded by the torque 
 of the base servo, it need time to solve.
+----
 
+6/12
+For mopplayer: Hardware review
+ISSIUE:
+The robotic arm is modified to move horizontally,
+but the strcture is still weak, we will add screws to fix this.
