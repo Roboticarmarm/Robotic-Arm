@@ -2,7 +2,8 @@
 
 wav_file=$1
 
-[[ -n "$ASR" ]] || ASR="localhost:8081/"
+#[[ -n "$ASR" ]] || ASR="localhost:8081/"
+[[ -n "$ASR" ]] || ASR="140.112.21.19:8081/"
 
 echo "Your audio file is:"
 echo $wav_file
