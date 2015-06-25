@@ -1,8 +1,9 @@
 #!/bin/bash
 #Serial control for ttyUSB=ttyACM0
- 
+export i=0
+export j=0
 echo "Now initializing Serial port for ttyACM0..."
-chmod 777 /dev/ttyACM0
+sudo chmod 777 /dev/ttyACM0
 if [ "$?" == "0" ]; then
 	echo "Succeeded!"
 	case $1 in
@@ -14,16 +15,99 @@ if [ "$?" == "0" ]; then
 			echo "Write error!"
 		fi
          	;;
-	"-hold8")
-		sudo echo "70,80,80,80" >> /dev/ttyACM0
+	"-slowhold")               
+               for i in  {99..45..-1}
+                   do
+		   sudo echo "$i,99,50,10" >> /dev/ttyACM0
+		   if [ "$?" == "0" ]; then
+			echo "...done...$i"
+		   else
+			echo "Write error!"
+		    fi
+         	   sleep 0.1
+               done              
+         	;; 
+
+	"-clap")
+		sudo echo "50,99,50,10" >> /dev/ttyACM0
+		if [ "$?" == "0" ]; then
+			echo "...done."
+		else
+			echo "Write error!"
+		fi
+                sleep 0.5
+		sudo echo "80,99,50,10" >> /dev/ttyACM0
+		if [ "$?" == "0" ]; then
+			echo "...done."
+		else
+			echo "Write error!"
+		fi
+                sleep 0.5
+		sudo echo "50,99,50,10" >> /dev/ttyACM0
+		if [ "$?" == "0" ]; then
+			echo "...done."
+		else
+			echo "Write error!"
+		fi
+                sleep 0.5
+		sudo echo "80,99,50,10" >> /dev/ttyACM0
+		if [ "$?" == "0" ]; then
+			echo "...done."
+		else
+			echo "Write error!"
+		fi
+                sleep 0.5
+		sudo echo "50,99,50,10" >> /dev/ttyACM0
+		if [ "$?" == "0" ]; then
+			echo "...done."
+		else
+			echo "Write error!"
+		fi
+                sleep 0.5
+		sudo echo "80,99,50,10" >> /dev/ttyACM0
 		if [ "$?" == "0" ]; then
 			echo "...done."
 		else
 			echo "Write error!"
 		fi
          	;;
-	"-hold7")
-		sudo echo "60,70,70,70" >> /dev/ttyACM0
+	"-rotate")
+		sudo echo "50,99,50,10" >> /dev/ttyACM0
+		if [ "$?" == "0" ]; then
+			echo "...done."
+		else
+			echo "Write error!"
+		fi
+                sleep 0.5
+		sudo echo "80,20,50,10" >> /dev/ttyACM0
+		if [ "$?" == "0" ]; then
+			echo "...done."
+		else
+			echo "Write error!"
+		fi
+                sleep 0.5
+		sudo echo "50,99,50,10" >> /dev/ttyACM0
+		if [ "$?" == "0" ]; then
+			echo "...done."
+		else
+			echo "Write error!"
+		fi
+                sleep 0.5
+		sudo echo "80,20,50,10" >> /dev/ttyACM0
+		if [ "$?" == "0" ]; then
+			echo "...done."
+		else
+			echo "Write error!"
+		fi
+                sleep 0.5
+		sudo echo "50,99,50,10" >> /dev/ttyACM0
+		if [ "$?" == "0" ]; then
+			echo "...done."
+		else
+			echo "Write error!"
+		fi
+                sleep 0.5
+		sudo echo "80,20,50,10" >> /dev/ttyACM0
 		if [ "$?" == "0" ]; then
 			echo "...done."
 		else

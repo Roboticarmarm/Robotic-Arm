@@ -9,11 +9,14 @@ do
   arecord -q -d 5 -c 1 -f S16_LE -r8000 test.wav
   ./sirius-asr-test.sh ./test.wav > histry
   cat histry
-  if grep -q yes histry
-  then
+  if grep -q yeah histry || grep -q yes histry;then
     echo "YES!!!"
-  else grep  -q no histry
-  then
-    echo "NO!!!"
+    ../mainarm.sh -hold9
+  elif grep  -q no histry;then
+    echo "NO!!!"   
+    ../mainarm.sh -init
+  elif grep  -q no histry;then
+    echo "go back"   
+    ../mainarm.sh -clap
   fi
 done
