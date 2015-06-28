@@ -1,9 +1,0 @@
-function [ d ] = run_dtw( file1, file2, w )
-dir=''
-addpath('../iif');
-a = genIIF(file1, 1);
-b = genIIF(file2, 1);
-d=dtw_c(a,b,w);
-fprintf('%f',d);
-end
-
