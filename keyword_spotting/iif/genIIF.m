@@ -1,4 +1,4 @@
-function [ iif_final ] = genIIF( input_wav, method)
+function [ iif_final ] = genIIF( input_wav, method, output_file)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 addpath('./gammatonegram');
@@ -20,6 +20,6 @@ elseif(method == 2)
     iif_red_norm = (iif_red_delta-repmat(totalmean,size(iif,1),1))./repmat(totalstd,size(iif_red_delta,1),1);
     iif_final = iif_red_norm*Tmllt';
 end
-csvwrite('iif.csv',iif_final);
+csvwrite(output_file,iif_final);
 end
 

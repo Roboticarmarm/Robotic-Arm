@@ -45,19 +45,19 @@ double dtw_c(double *s, double *t, int w, int ns, int nt, int k)
     int j1,j2;
     double cost,temp;
     
-    // printf("ns=%d, nt=%d, w=%d, s[0]=%f, t[0]=%f\n",ns,nt,w,s[0],t[0]);
+    /* printf("ns=%d, nt=%d, w=%d, s[0]=%f, t[0]=%f\n",ns,nt,w,s[0],t[0]); */
     
     
-    if(w!=-1 && w<sizediff) w=sizediff; // adapt window size
+    if(w!=-1 && w<sizediff) w=sizediff; /* adapt window size */
     
-    // create D
+    /* create D */
     D=(double **)malloc((ns+1)*sizeof(double *));
     for(i=0;i<ns+1;i++)
     {
         D[i]=(double *)malloc((nt+1)*sizeof(double));
     }
     
-    // initialization
+    /* initialization */
     for(i=0;i<ns+1;i++)
     {
         for(j=0;j<nt+1;j++)
@@ -67,7 +67,7 @@ double dtw_c(double *s, double *t, int w, int ns, int nt, int k)
     }
     D[0][0]=0;
     
-    // dynamic programming
+    /* dynamic programming */
     for(i=1;i<=ns;i++)
     {
         if(w==-1)
@@ -113,7 +113,7 @@ double dtw_c(double *s, double *t, int w, int ns, int nt, int k)
     }
     */ 
     
-    // free D
+    /* free D */
     for(i=0;i<ns+1;i++)
     {
         free(D[i]);
