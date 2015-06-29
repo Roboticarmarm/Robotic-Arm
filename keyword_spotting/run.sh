@@ -1,16 +1,12 @@
 #!/bin/bash
-name=test
-file=$name.wav
+#matlab -nojvm -nosplash 
+file=test.wav
+for i in $(seq 1 3) 
+do
 arecord -q -d 1 -c 1 -f S16_LE -r8000 $file
-play $file
-echo 'done'
-# iif feature
-cd iif;matlab -nojvm -nosplash -r "genIIF('../$file',1,'$name.csv');quit;";cd ..
+#play $file
 
-cat iif/iif.csv | wc
-awk '{FS=","} { print NF }' iif/iif.csv | sort -u
 # template matching
-#for and best
-cd dynamic_time_warping_v2.1;matlab -nojvm -nosplash -r "run_dtw('../iif/$name.csv','../iif/$name.csv',50);quit;";cd ..
-
-# output
+cd dynamic_time_warping_v2.1;matlab -nojvm -nosplash -r "dtw_classify('../$file');quit;";cd ..
+done
+rm $file

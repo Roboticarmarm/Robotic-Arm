@@ -13,7 +13,7 @@ do
 		file=$word'_'$i
 		echo $file
 		arecord -q -d 1 -c 1 -f S16_LE -r8000 wav/$file.wav
-		cd iif;matlab -nojvm -nosplash -r "genIIF('../wav/$file.wav',1,'../feature/$file.csv');quit;" > tmp;cd ..
+		cd iif;matlab -nojvm -nosplash -r "genIIF('../wav/$file.wav',1,'../feature/$file.csv');quit;" 2>dev/null;cd ..
 	done
 done
 
