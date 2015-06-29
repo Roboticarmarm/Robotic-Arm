@@ -1,0 +1,12 @@
+move_1 /home/wyc/Documents/Robotic-Arm/keyword_spotting/wav/move_1.wav
+move_2 /home/wyc/Documents/Robotic-Arm/keyword_spotting/wav/move_2.wav
+move_3 /home/wyc/Documents/Robotic-Arm/keyword_spotting/wav/move_3.wav
+stop_1 /home/wyc/Documents/Robotic-Arm/keyword_spotting/wav/stop_1.wav
+stop_2 /home/wyc/Documents/Robotic-Arm/keyword_spotting/wav/stop_2.wav
+stop_3 /home/wyc/Documents/Robotic-Arm/keyword_spotting/wav/stop_3.wav
+yes_1 /home/wyc/Documents/Robotic-Arm/keyword_spotting/wav/yes_1.wav
+yes_2 /home/wyc/Documents/Robotic-Arm/keyword_spotting/wav/yes_2.wav
+yes_3 /home/wyc/Documents/Robotic-Arm/keyword_spotting/wav/yes_3.wav
+no_1 /home/wyc/Documents/Robotic-Arm/keyword_spotting/wav/no_1.wav
+no_2 /home/wyc/Documents/Robotic-Arm/keyword_spotting/wav/no_2.wav
+no_3 /home/wyc/Documents/Robotic-Arm/keyword_spotting/wav/no_3.wav
