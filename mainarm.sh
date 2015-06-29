@@ -8,7 +8,7 @@ if [ "$?" == "0" ]; then
 	echo "Succeeded!"
 	case $1 in
 	"-hold9")
-		sudo echo "50,99,50,10" >> /dev/ttyACM0
+		sudo echo "45,50,30,60" >> /dev/ttyACM0
 		if [ "$?" == "0" ]; then
 			echo "...done."
 		else
@@ -163,7 +163,7 @@ if [ "$?" == "0" ]; then
 		fi
          	;;
 	"-init")
-		sudo echo "80,70,99,90" >> /dev/ttyACM0
+		sudo echo "80,50,99,60" >> /dev/ttyACM0
 		if [ "$?" == "0" ]; then
 			echo "...done."
 		else

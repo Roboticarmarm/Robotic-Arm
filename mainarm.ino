@@ -1,6 +1,7 @@
 //Beta version for hand control
 
 #include <Servo.h>
+const int DISTANCE=80;
 const int NUM=4;
 int incomingByte=0 ;
 int data[NUM]={};
@@ -11,20 +12,59 @@ Servo th1,th2,th3,fo1;
 int pos = 0;
 
 void setup() {
-  th1.attach(2); 
-  th2.attach(3);  
-  th3.attach(4);  
-  fo1.attach(5);  
- 
+  th1.attach(3); 
+  th2.attach(5);  
+  th3.attach(6);  
+  fo1.attach(9);  
+  pinMode(7, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(8, INPUT);
   Serial.begin(115200);
 }
 
 void loop() {
+  long duration, mm;    
+  digitalWrite(7, LOW);
+  delayMicroseconds(2);
+  digitalWrite(7, HIGH);
+  delayMicroseconds(20);
+  digitalWrite(7, LOW);
   
-  if (Serial.available()) {
-    
+  duration = pulseIn(8, HIGH);
+  mm = duration*34/200;
+  Serial.print(mm);
+  Serial.print("mm");
+  Serial.println();
+  
+  if (current[0]==80)
+  {
+    if(mm<=DISTANCE)
+    {
+      current[0]=44;
+      current[1]=50;
+      current[2]=30;
+      current[3]=60;
+      backward(4,10,11,12);
+    }
+    else
+    {
+      forward(4,10,11,12);
+    }
+  }
+  else if (current[0]==44)
+  {
+    backward(4,10,11,12);
+  }
+  else
+  {
+    mstop(4,10,11,12);
+  }
+  if (Serial.available()) 
+  {  
     incomingByte = Serial.read();
-
     if (incomingByte==10)
     {
            
@@ -35,7 +75,6 @@ void loop() {
         Serial.print(",");
       }
       Serial.println("...processing");
-      WriteServo(data[0], data[1], data[2], data[3]); //write fetcing data to servo
           
       for(int i=0;i<NUM;i=i+1)
       {
@@ -65,17 +104,6 @@ void loop() {
   {
     WriteServo(current[0]+30, current[1], current[2], current[3]); //write fetcing data to servo
   }
-
- /*   for(pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees 
-  {                                  // in steps of 1 degree 
-    th1.write(pos);              // tell servo to go to position in variable 'pos' 
-    delay(15);                       // waits 15ms for the servo to reach the position 
-  } 
-  for(pos = 180; pos>=0; pos-=1)     // goes from 180 degrees to 0 degrees 
-  {                                
-    th1.write(pos);              // tell servo to go to position in variable 'pos' 
-    delay(15);                       // waits 15ms for the servo to reach the position 
-  }*/
 }
 
 void WriteServo(int a1, int a2, int a3, int b1)
@@ -88,4 +116,28 @@ void WriteServo(int a1, int a2, int a3, int b1)
     delay(1);
     fo1.write(b1);
     delay(1);  
+}
+
+void forward(int in1,int in2,int in3,int in4)
+{
+    digitalWrite(in1,HIGH);
+    digitalWrite(in2,LOW);
+    digitalWrite(in3,HIGH);
+    digitalWrite(in4,LOW);
+}
+
+void backward(int in1,int in2,int in3,int in4)
+{
+    digitalWrite(in1,LOW);
+    digitalWrite(in2,HIGH);
+    digitalWrite(in3,LOW);
+    digitalWrite(in4,HIGH);
+}
+
+void mstop(int in1,int in2,int in3,int in4)
+{
+    digitalWrite(in1,LOW);
+    digitalWrite(in2,LOW);
+    digitalWrite(in3,LOW);
+    digitalWrite(in4,LOW);
 }
