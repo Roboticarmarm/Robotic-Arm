@@ -5,6 +5,7 @@ Robotic Arm Control Codebase
 3. serial.ino-Serial base sample code for Arduino Mega2560
 4. mainarm.sh-Beta version for RK3188 (hand)
 5. mainarm.ino-Beta version for Arduino Mega2560
+6. testarm.sh-Testing for the angel
 ------------------------GUIDELINE-------------------------
 For everyone in this project, doc format is here:
 {
