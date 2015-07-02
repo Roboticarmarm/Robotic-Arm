@@ -5,6 +5,7 @@ Robotic Arm Control Codebase
 3. serial.ino-Serial base sample code for Arduino Mega2560
 4. mainarm.sh-Beta version for RK3188 (hand)
 5. mainarm.ino-Beta version for Arduino Mega2560
+6. testarm.sh-Testing for the angel
 ------------------------GUIDELINE-------------------------
 For everyone in this project, doc format is here:
 {
@@ -80,3 +81,9 @@ but the strcture is still weak, we will add screws to fix this.
 For mopplayer: Simplify arm
 Basic hold control
 Done.
+
+6/29
+For mopplayer : car go and grap
+version 1.0 release
+Done.
+ 
