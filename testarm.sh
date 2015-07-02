@@ -2,9 +2,9 @@
 #Serial control for ttyUSB=ttyACM0
 case $1 in
 "-left1")               
-     for i in  {99..0..-1}
+     for i in  {99..10..-1}
         do
-        sudo echo "$i,99,50,10" >> /dev/ttyACM0
+        sudo echo "$i,81,01,81" >> /dev/ttyACM0
         if [ "$?" == "0" ]; then
 	     echo "...done...$i"
 	else
@@ -14,9 +14,9 @@ case $1 in
         done              
         ;; 
 "-right1")               
-     for i in  {99..0..-1}
+     for i in  {10..99..1}
         do
-        sudo echo "$i,99,50,10" >> /dev/ttyACM0
+        sudo echo "$i,81,01,81" >> /dev/ttyACM0
         if [ "$?" == "0" ]; then
 	     echo "...done...$i"
 	else
@@ -26,9 +26,9 @@ case $1 in
         done              
         ;; 
 "-left2")               
-     for i in  {99..0..-1}
+     for i in  {99..10..-1}
         do
-        sudo echo "50,$i,50,10" >> /dev/ttyACM0
+        sudo echo "01,$i,01,81" >> /dev/ttyACM0
         if [ "$?" == "0" ]; then
 	     echo "...done...$i"
 	else
@@ -38,9 +38,9 @@ case $1 in
         done              
         ;; 
 "-right2")               
-     for i in  {99..0..-1}
+     for i in  {10..99..1}
         do
-        sudo echo "50,$i,50,10" >> /dev/ttyACM0
+        sudo echo "01,$i,01,81" >> /dev/ttyACM0
         if [ "$?" == "0" ]; then
 	     echo "...done...$i"
 	else
@@ -50,9 +50,9 @@ case $1 in
         done              
         ;; 
 "-left3")               
-     for i in  {99..0..-1}
+     for i in  {99..10..-1}
         do
-        sudo echo "50,99,$i,10" >> /dev/ttyACM0
+        sudo echo "01,81,$i,81" >> /dev/ttyACM0
         if [ "$?" == "0" ]; then
 	     echo "...done...$i"
 	else
@@ -62,9 +62,9 @@ case $1 in
         done              
         ;; 
 "-right3")               
-     for i in  {99..0..-1}
+     for i in  {10..99..1}
         do
-        sudo echo "50,99,$i,10" >> /dev/ttyACM0
+        sudo echo "01,81,$i,81" >> /dev/ttyACM0
         if [ "$?" == "0" ]; then
 	     echo "...done...$i"
 	else
@@ -74,9 +74,9 @@ case $1 in
         done              
         ;; 
 "-left4")               
-     for i in  {99..0..-1}
+     for i in  {99..10..-1}
         do
-        sudo echo "50,99,50,$i" >> /dev/ttyACM0
+        sudo echo "01,81,01,$i" >> /dev/ttyACM0
         if [ "$?" == "0" ]; then
 	     echo "...done...$i"
 	else
@@ -86,9 +86,9 @@ case $1 in
         done              
         ;; 
 "-right4")               
-     for i in  {99..0..-1}
+     for i in  {10..99..1}
         do
-        sudo echo "50,99,50,$i" >> /dev/ttyACM0
+        sudo echo "01,81,01,$i" >> /dev/ttyACM0
         if [ "$?" == "0" ]; then
 	     echo "...done...$i"
 	else
