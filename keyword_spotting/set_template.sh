@@ -1,11 +1,12 @@
 #!/bin/bash
-list=word_list.txt
-rep=$1
+wSet=$1		# 4Rotate
+rep=$2		# 3
+list=$wSet.list
 
 if [ ! -d "wav" ]; then mkdir wav;fi
 if [ ! -d "feature" ]; then mkdir feature;fi
-rm -f wav/wav.scp;
-rm -f feature/*
+rm -f wav/$wSet.scp;
+#rm -f feature/*
 
 # record
 for word in $(cat $list)
@@ -16,10 +17,11 @@ do
 		echo $file
 		arecord -q -d 1 -c 1 -f S16_LE -r8000 wav/$file.wav
 		#cd iif;matlab -nojvm -nosplash -r "genIIF('../wav/$file.wav',1,'../feature/$file.csv');quit;" 2>dev/null;cd ..	
-		echo "$file $(pwd)/wav/$file.wav" >> wav/wav.scp
+		echo "$file $(pwd)/wav/$file.wav" >> wav/$wSet.scp
 	done
 done
-compute-mfcc-feats --sample-frequency=8000 scp:wav/wav.scp ark,t:feature/mfcc.ark
+compute-mfcc-feats --sample-frequency=8000 scp:wav/$wSet.scp ark,t:feature/mfcc.ark
+
 # split ark
 cd feature;cat mfcc.ark | split -l 99
 for file in x*

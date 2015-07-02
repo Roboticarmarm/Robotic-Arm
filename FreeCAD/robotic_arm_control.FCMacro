@@ -1,0 +1,114 @@
+from PySide import QtCore
+from scipy.sparse.linalg import eigs
+import numpy as np
+from math import cos,sin,pi,acos
+import os
+import time
+
+incre=0.5
+thetaA=0.1 # z (0,0,1)
+thetaB=-10 # y (0,1,0)
+thetaC=0  # x (1,0,0)
+thetaD=30  # grab (0,0,1)
+i = 0
+# axis define differenet
+
+cmd = "sh run_freeCAD.sh"
+#pose = { 'yes\n': [0,10,20,30],'no\n': [30,20,10,0],'stop\n': [0.1,0,0,60], 'MOVE!!!\n': [0.1,-45,0,30] }
+pose = { 'hold\n': [0,0,0,-30],'release\n': [0,0,0,30],'right\n': [-10,0,10,0], 'left\n': [10,0,0,0],'up\n': [0,-10,0,0],'down\n': [0,10,0,0],'flip\n': [0,0,10,0], 'flap\n': [0,0,-10,0] }
+
+def update2():
+	global i
+	slot = 1100
+	repeat = 10
+	
+	if i%slot == 1:
+		FreeCAD.Console.PrintMessage((i/slot)+1)
+		FreeCAD.Console.PrintMessage("\n")
+	if i%slot ==100:
+		run()
+
+	if i == repeat*slot:
+		timer.stop()
+
+	i += 1
+		
+
+def run():
+	global thetaA,thetaB,thetaC,thetaD
+	str = os.popen(cmd).read()
+	FreeCAD.Console.PrintMessage(str)
+	tmp = [thetaA + pose[str][0],thetaB + pose[str][1],thetaC + pose[str][2],thetaD + pose[str][3] ]  
+	[thetaA,thetaB,thetaC,thetaD] = tmp
+	setpose()
+
+def init():
+	timer.stop()
+	App.getDocument("robotic_arm2").Fusion003.Placement=App.Placement(App.Vector(42.5,-20,80), App.Rotation(App.Vector(0,0,-1),6.9), App.Vector(0,0,0))  #right
+	App.getDocument("robotic_arm2").Fusion004.Placement=App.Placement(App.Vector(42.5,12.5,80), App.Rotation(App.Vector(0,0,1),6.9), App.Vector(0,0,0))  # left
+	App.getDocument("robotic_arm2").Fusion002.Placement=App.Placement(App.Vector(42.5,12.5,80), App.Rotation(App.Vector(0,0,1),0), App.Vector(-42,-12.5,-75))
+	App.getDocument("robotic_arm2").Fusion006.Placement=App.Placement(App.Vector(7.5,25,10), App.Rotation(App.Vector(0,0,1),0), App.Vector(0,0,0))
+	App.getDocument("robotic_arm2").Fusion.Placement=App.Placement(App.Vector(0,0,0), App.Rotation(App.Vector(0,0,1),0), App.Vector(0,0,0))
+
+def update():
+	global thetaA,thetaB,thetaC,thetaD,incre
+	setpose()
+	thetaB+=incre  #####<<<<<<<<<
+
+setpose()
+#timer=QtCore.QTimer()
+#timer.timeout.connect(update2)
+#timer.start(1)
+
+def rotate(axis,angle):
+	a = angle/180.0*pi
+	A = np.array([[0,-axis[2],axis[1]],[axis[2],0,-axis[0]],[-axis[1],axis[0],0]]) 
+	M = cos(a)*np.eye(3) + (1-cos(a))*np.outer(axis,axis) - sin(a)*A
+	return M
+
+def compute_rotate(M):
+	a = acos((np.trace(M)-1)/2.0)
+	axis = np.array([M[2][1]-M[1][2],M[0][2]-M[2][0],M[1][0]-M[0][1]])/(2*sin(a))
+	angle = -a*180.0/pi
+	return axis,angle
+
+
+
+def setpose():
+	global thetaA,thetaB,thetaC,thetaD
+	A = rotate([0,0,1],thetaA)
+	B = rotate([0,1,0],thetaB)
+	C = rotate([1,0,0],thetaC)
+	D1 = rotate([0,0,1],thetaD)
+	D2 = rotate([0,0,1],-thetaD)
+
+	# rotate
+	M1 = np.dot(B,A)
+	axisB, angleB = compute_rotate(M1)
+	M2 = np.dot(C,M1)
+	axisC, angleC = compute_rotate(M2)
+	M31 = np.dot(D1,M2)
+	M32 = np.dot(D2,M2)
+	axisD1, angleD1 = compute_rotate(M31)
+	axisD2, angleD2 = compute_rotate(M32)
+
+	# transform
+	p1 = np.array([7.5,25,10])
+	s1 = np.dot(p1,A)-p1
+	p2 = np.array([22.5,-20,45])
+	tmp = p1 + np.dot(p2,B)
+	s2 = np.dot(tmp,A)-tmp + np.dot(p2,B)-p2
+	p3 = np.array([12.5,7.5,25])
+	tmp1 = p1 + np.dot(p2,B) + np.dot(p3,C)
+	tmp2 = p2 + np.dot(p3,C)
+	s3 = np.dot(tmp1,A)-tmp1 + np.dot(tmp2,B)-tmp2 + np.dot(p3,C)-p3
+	p4 = np.array([0,-32.5,0])
+	tmp3 = p3+p4
+	tmp4 = p1 + np.dot(p2,B) + np.dot(tmp3,C)
+	s4 = np.dot(tmp4,A)-tmp4 + np.dot(tmp2,B)-tmp2 + np.dot(tmp3,C)-tmp3
+
+	App.getDocument("robotic_arm2").Fusion003.Placement=App.Placement(App.Vector(42.5+s4[0],-20+s4[1],80+s4[2]), App.Rotation(App.Vector(axisD2[0],axisD2[1],axisD2[2]),angleD2), App.Vector(0,0,0))  #right
+	App.getDocument("robotic_arm2").Fusion004.Placement=App.Placement(App.Vector(42.5+s3[0],12.5+s3[1],80+s3[2]), App.Rotation(App.Vector(axisD1[0],axisD1[1],axisD1[2]),angleD1), App.Vector(0,0,0))  # left
+	App.getDocument("robotic_arm2").Fusion002.Placement=App.Placement(App.Vector(42.5+s2[0],12.5+s2[1],80+s2[2]), App.Rotation(App.Vector(axisC[0],axisC[1],axisC[2]),angleC), App.Vector(-12.5,-7.5,-25))
+	App.getDocument("robotic_arm2").Fusion006.Placement=App.Placement(App.Vector(7.5+s1[0],25+s1[1],10+s1[2]), App.Rotation(App.Vector(axisB[0],axisB[1],axisB[2]),angleB), App.Vector(0,0,0))
+	App.getDocument("robotic_arm2").Fusion.Placement=App.Placement(App.Vector(0,0,0), App.Rotation(App.Vector(0,0,1),thetaA), App.Vector(0,0,0))

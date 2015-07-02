@@ -100,15 +100,15 @@ void arkread(const char* filename,double* data){
 }
 
 main ( int arc, char **argv ) {
-	ifstream file("../wav/wav.scp");
 	string id,fpath,tmp,_class;
 	double best_d = 10000,*s = new double [98*13],*t = new double [98*13],d;
 	int w = 50,dim = 13,nframe = 98;
+	string dir = argv[1],tfile=dir + argv[2],scp=argv[3];
 	
-	arkread(argv[1],s);	// read test file
+	ifstream file(scp);
+	arkread( tfile.c_str() ,s);	// read test file
 	while(file >> id >> fpath){
-		tmp = "../feature/"+ id + ".ark";
-		//cout << tmp << endl;
+		tmp = dir + id + ".ark";
 		arkread( tmp.c_str(),t ); // read template file
 		d=dtw_c(s,t,w,nframe,nframe,dim);
 		if(d < best_d){
