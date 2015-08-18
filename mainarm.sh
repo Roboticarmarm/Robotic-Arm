@@ -8,7 +8,7 @@ if [ "$?" == "0" ]; then
 	echo "Succeeded!"
 	case $1 in
 	"-hold9")
-		sudo echo "45,50,30,60" >> /dev/ttyACM0
+		sudo echo "00,80,00,80" >> /dev/ttyACM0
 		if [ "$?" == "0" ]; then
 			echo "...done."
 		else
@@ -114,56 +114,8 @@ if [ "$?" == "0" ]; then
 			echo "Write error!"
 		fi
          	;;
-	"-hold6")
-		sudo echo " 50,60,60,60" >> /dev/ttyACM0
-		if [ "$?" == "0" ]; then
-			echo "...done."
-		else
-			echo "Write error!"
-		fi
-         	;;
-	"-hold5") 
-		sudo echo "50,50,50,50" >> /dev/ttyACM0
-		if [ "$?" == "0" ]; then
-			echo "...done."
-		else
-			echo "Write error!"
-		fi
-         	;;
-	"-hold4")
-		sudo echo "40,40,40,40" >> /dev/ttyACM0
-		if [ "$?" == "0" ]; then
-			echo "...done."
-		else
-			echo "Write error!"
-		fi
-         	;;
-	"-hold3")
-		sudo echo "30,30,30,30" >> /dev/ttyACM0
-		if [ "$?" == "0" ]; then
-			echo "...done."
-		else
-			echo "Write error!"
-		fi
-         	;;
-	"-hold2")
-		sudo echo "20,20,20,20" >> /dev/ttyACM0
-		if [ "$?" == "0" ]; then
-			echo "...done."
-		else
-			echo "Write error!"
-		fi
-         	;;
-	"-hold1")
-		sudo echo "10,10,10,10" >> /dev/ttyACM0
-		if [ "$?" == "0" ]; then
-			echo "...done."
-		else
-			echo "Write error!"
-		fi
-         	;;
 	"-init")
-		sudo echo "80,50,99,60" >> /dev/ttyACM0
+		sudo echo "70,80,90,80" >> /dev/ttyACM0
 		if [ "$?" == "0" ]; then
 			echo "...done."
 		else

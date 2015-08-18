@@ -3,6 +3,7 @@
 #include <Servo.h>
 const int DISTANCE=80;
 const int NUM=4;
+const int sped=75;
 int incomingByte=0 ;
 int data[NUM]={};
 int current[NUM]={};
@@ -12,7 +13,7 @@ Servo th1,th2,th3,fo1;
 int pos = 0;
 
 void setup() {
-  th1.attach(3); 
+  th1.attach(2); 
   th2.attach(5);  
   th3.attach(6);  
   fo1.attach(9);  
@@ -21,12 +22,17 @@ void setup() {
   pinMode(10, OUTPUT);
   pinMode(11, OUTPUT);
   pinMode(12, OUTPUT);
+  pinMode(13, OUTPUT);
+  pinMode(3, OUTPUT);
   pinMode(8, INPUT);
   Serial.begin(115200);
 }
 
 void loop() {
   long duration, mm;    
+  analogWrite(3, sped);	//PWM	
+  analogWrite(11, sped);
+  
   digitalWrite(7, LOW);
   delayMicroseconds(2);
   digitalWrite(7, HIGH);
@@ -39,28 +45,28 @@ void loop() {
   Serial.print("mm");
   Serial.println();
   
-  if (current[0]==80)
+  if (current[0]==70 && current[1]==80 && current[2]==90 && current[3]==80)
   {
     if(mm<=DISTANCE)
     {
-      current[0]=44;
-      current[1]=50;
-      current[2]=30;
-      current[3]=60;
-      backward(4,10,11,12);
+      current[0]=10;
+      current[1]=80;
+      current[2]=0;
+      current[3]=80;
+      backward(4,10,13,12);
     }
     else
     {
-      forward(4,10,11,12);
+      forward(4,10,13,12);
     }
   }
-  else if (current[0]==44)
+  else if (current[0]==10 && current[1]==80 && current[2]==0 && current[3]==80)
   {
-    backward(4,10,11,12);
+    backward(4,10,13,12);
   }
   else
   {
-    mstop(4,10,11,12);
+    mstop(4,10,13,12);
   }
   if (Serial.available()) 
   {  
@@ -102,7 +108,7 @@ void loop() {
   }
   else
   {
-    WriteServo(current[0]+30, current[1], current[2], current[3]); //write fetcing data to servo
+    WriteServo(current[0], current[1], current[2]+20, current[3]); //write fetcing data to servo
   }
 }
 
